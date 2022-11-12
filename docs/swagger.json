@@ -1,0 +1,868 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "frp-panel API 描述",
+        "title": "frp-panel",
+        "contact": {},
+        "version": "1.0 版本"
+    },
+    "basePath": "/api  基础路径",
+    "paths": {
+        "/api/frpc": {
+            "get": {
+                "description": "get frpc",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "frpc"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/frpc/option": {
+            "get": {
+                "description": "get frpc option",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "frpc"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/frps/config": {
+            "get": {
+                "description": "get frps config",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "frps"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/config.FrpsConfig"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "save frps config",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "frps"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/frps/info": {
+            "get": {
+                "description": "get frps info",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "frps"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.serverInfoResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login/account": {
+            "post": {
+                "description": "user login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "description": "login info",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.LoginParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/http": {
+            "get": {
+                "description": "get frps http proxies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/https": {
+            "get": {
+                "description": "get frps https proxies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/name/validate": {
+            "get": {
+                "description": "validate frp proxy name unique",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "proxy name",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "frpc runId",
+                        "name": "runId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/port/tcp/validate": {
+            "get": {
+                "description": "validate frp tcp port usable",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "tcp port",
+                        "name": "port",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/stcp": {
+            "get": {
+                "description": "get frps stcp proxies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/sudp": {
+            "get": {
+                "description": "get frps sudp proxies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/tcp": {
+            "get": {
+                "description": "get frps tcp proxies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "current page",
+                        "name": "current",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "page size",
+                        "name": "pageSize",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "proxy name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "proxy status",
+                        "name": "status",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "description": "add frp tcp proxy",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "parameters": [
+                    {
+                        "description": "proxy info",
+                        "name": "pxy",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/msg.NewProxyIni"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete frp proxy",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "parameters": [
+                    {
+                        "description": "proxy info",
+                        "name": "pxy",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/msg.DeleteProxy"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/tcpmux": {
+            "get": {
+                "description": "get frps tcpmux proxies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/udp": {
+            "get": {
+                "description": "get frps udp proxies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/proxy/xtcp": {
+            "get": {
+                "description": "get frps xtcp proxies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "proxy"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "config.Common": {
+            "type": "object",
+            "required": [
+                "bindPort"
+            ],
+            "properties": {
+                "KcpBindPort": {
+                    "type": "integer"
+                },
+                "OidcIssuer": {
+                    "type": "string"
+                },
+                "allowPorts": {
+                    "description": "manage config",
+                    "type": "string"
+                },
+                "authenticateHeartbeats": {
+                    "type": "boolean"
+                },
+                "authenticateNewWorkConns": {
+                    "type": "boolean"
+                },
+                "authenticationMethod": {
+                    "description": "auth config",
+                    "type": "string"
+                },
+                "bindAddr": {
+                    "description": "bind config",
+                    "type": "string"
+                },
+                "bindPort": {
+                    "type": "integer"
+                },
+                "bindUdpPort": {
+                    "type": "integer"
+                },
+                "custom404Page": {
+                    "type": "string"
+                },
+                "detailedErrorsToClient": {
+                    "type": "boolean"
+                },
+                "disableLogColor": {
+                    "type": "boolean"
+                },
+                "heartbeatTimeout": {
+                    "type": "integer"
+                },
+                "logFile": {
+                    "description": "log config",
+                    "type": "string"
+                },
+                "logLevel": {
+                    "type": "string"
+                },
+                "logMaxDays": {
+                    "type": "integer"
+                },
+                "maxPoolCount": {
+                    "type": "integer"
+                },
+                "maxPortsPerClient": {
+                    "type": "integer"
+                },
+                "oidcAudience": {
+                    "type": "string"
+                },
+                "oidcSkipExpiryCheck": {
+                    "type": "boolean"
+                },
+                "oidcSkipIssuerCheck": {
+                    "type": "boolean"
+                },
+                "proxyBindAddr": {
+                    "type": "string"
+                },
+                "subdomainHost": {
+                    "type": "string"
+                },
+                "tcpKeepalive": {
+                    "description": "connect config",
+                    "type": "integer"
+                },
+                "tcpmuxHttpConnectPort": {
+                    "description": "tcpmux config",
+                    "type": "integer"
+                },
+                "tcpmuxPassthrough": {
+                    "type": "boolean"
+                },
+                "tlsOnly": {
+                    "type": "boolean"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "udpPacketSize": {
+                    "type": "integer"
+                },
+                "userConnTimeout": {
+                    "type": "integer"
+                },
+                "vhostHttpPort": {
+                    "type": "integer"
+                },
+                "vhostHttpTimeout": {
+                    "description": "http \u0026 https config",
+                    "type": "integer"
+                },
+                "vhostHttpsPort": {
+                    "type": "integer"
+                }
+            }
+        },
+        "config.FrpsConfig": {
+            "type": "object",
+            "properties": {
+                "common": {
+                    "$ref": "#/definitions/config.Common"
+                }
+            }
+        },
+        "controller.serverInfoResp": {
+            "type": "object",
+            "properties": {
+                "bind_port": {
+                    "type": "integer"
+                },
+                "bind_udp_port": {
+                    "type": "integer"
+                },
+                "client_counts": {
+                    "type": "integer"
+                },
+                "cur_conns": {
+                    "type": "integer"
+                },
+                "heart_beat_timeout": {
+                    "type": "integer"
+                },
+                "host": {
+                    "$ref": "#/definitions/model.Host"
+                },
+                "host_state": {
+                    "$ref": "#/definitions/model.HostState"
+                },
+                "kcp_bind_port": {
+                    "type": "integer"
+                },
+                "max_pool_count": {
+                    "type": "integer"
+                },
+                "max_ports_per_client": {
+                    "type": "integer"
+                },
+                "proxy_type_count": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "subdomain_host": {
+                    "type": "string"
+                },
+                "tcpmux_httpconnect_port": {
+                    "type": "integer"
+                },
+                "total_traffic_in": {
+                    "type": "integer"
+                },
+                "total_traffic_out": {
+                    "type": "integer"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "vhost_http_port": {
+                    "type": "integer"
+                },
+                "vhost_https_port": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.Host": {
+            "type": "object",
+            "properties": {
+                "arch": {
+                    "type": "string"
+                },
+                "boot_time": {
+                    "type": "integer"
+                },
+                "cpu": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "mem_total": {
+                    "type": "integer"
+                },
+                "platform": {
+                    "type": "string"
+                },
+                "platform_version": {
+                    "type": "string"
+                },
+                "swap_total": {
+                    "type": "integer"
+                },
+                "virtualization": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.HostState": {
+            "type": "object",
+            "properties": {
+                "cpu": {
+                    "type": "number"
+                },
+                "load_1": {
+                    "type": "number"
+                },
+                "load_15": {
+                    "type": "number"
+                },
+                "load_5": {
+                    "type": "number"
+                },
+                "mem_percent": {
+                    "type": "number"
+                },
+                "mem_used": {
+                    "type": "integer"
+                },
+                "net_in_speed": {
+                    "type": "integer"
+                },
+                "net_in_transfer": {
+                    "type": "integer"
+                },
+                "net_out_speed": {
+                    "type": "integer"
+                },
+                "net_out_transfer": {
+                    "type": "integer"
+                },
+                "process_count": {
+                    "type": "integer"
+                },
+                "swap_percent": {
+                    "type": "number"
+                },
+                "swap_used": {
+                    "type": "integer"
+                },
+                "tcp_conn_count": {
+                    "type": "integer"
+                },
+                "udp_conn_count": {
+                    "type": "integer"
+                },
+                "uptime": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.LoginParams": {
+            "type": "object",
+            "required": [
+                "autoLogin",
+                "password",
+                "type",
+                "username"
+            ],
+            "properties": {
+                "autoLogin": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "msg.DeleteProxy": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "ProxyName is the name of this",
+                    "type": "string"
+                },
+                "run_id": {
+                    "description": "RunId client unique id",
+                    "type": "string"
+                }
+            }
+        },
+        "msg.NewProxyIni": {
+            "type": "object",
+            "properties": {
+                "bandwidth_limit": {
+                    "description": "BandwidthLimit limit the bandwidth\n0 means no limit",
+                    "type": "string"
+                },
+                "custom_domains": {
+                    "type": "string"
+                },
+                "group": {
+                    "description": "Group specifies which group the is a part of. The server will use\nthis information to load balance proxies in the same group. If the value\nis \"\", this will not be in a group. By default, this value is \"\".",
+                    "type": "string"
+                },
+                "group_key": {
+                    "description": "GroupKey specifies a group key, which should be the same among proxies\nof the same group. By default, this value is \"\".",
+                    "type": "string"
+                },
+                "headers": {
+                    "type": "string"
+                },
+                "healthCheckAddr": {
+                    "description": "HealthCheckAddr specifies the address to connect to if the health check\ntype is \"tcp\".",
+                    "type": "string"
+                },
+                "health_check_interval_s": {
+                    "description": "HealthCheckIntervalS specifies the time in seconds between health\nchecks. By default, this value is 10.",
+                    "type": "string"
+                },
+                "health_check_max_failed": {
+                    "description": "HealthCheckMaxFailed specifies the number of allowed failures before the\nis stopped. By default, this value is 1.",
+                    "type": "string"
+                },
+                "health_check_timeout_s": {
+                    "description": "HealthCheckTimeoutS specifies the number of seconds to wait for a health\ncheck attempt to connect. If the timeout is reached, this counts as a\nhealth check failure. By default, this value is 3.",
+                    "type": "string"
+                },
+                "health_check_type": {
+                    "description": "HealthCheckType specifies what protocol to use for health checking.\nValid values include \"tcp\", \"http\", and \"\". If this value is \"\", health\nchecking will not be performed. By default, this value is \"\".\n\nIf the type is \"tcp\", a connection will be attempted to the target\nserver. If a connection cannot be established, the health check fails.\n\nIf the type is \"http\", a GET request will be made to the endpoint\nspecified by HealthCheckURL. If the response is not a 200, the health\ncheck fails.",
+                    "type": "string"
+                },
+                "health_check_url": {
+                    "description": "HealthCheckURL specifies the address to send health checks to if the\nhealth check type is \"http\".",
+                    "type": "string"
+                },
+                "host_header_rewrite": {
+                    "type": "string"
+                },
+                "http_pwd": {
+                    "type": "string"
+                },
+                "http_user": {
+                    "type": "string"
+                },
+                "local_ip": {
+                    "description": "LocalIP specifies the IP address or host name to to.",
+                    "type": "string"
+                },
+                "local_port": {
+                    "description": "LocalPort specifies the port to to.",
+                    "type": "string"
+                },
+                "locations": {
+                    "type": "string"
+                },
+                "metas": {
+                    "description": "meta info for each proxy",
+                    "type": "string"
+                },
+                "multiplexer": {
+                    "type": "string"
+                },
+                "name": {
+                    "description": "ProxyName is the name of this",
+                    "type": "string"
+                },
+                "plugin": {
+                    "description": "Plugin specifies what plugin should be used for ng. If this value\nis set, the LocalIp and LocalPort values will be ignored. By default,\nthis value is \"\".",
+                    "type": "string"
+                },
+                "pluginParams": {
+                    "description": "PluginParams specify parameters to be passed to the plugin, if one is\nbeing used. By default, this value is an empty map.",
+                    "type": "string"
+                },
+                "proxy_protocol_version": {
+                    "description": "ProxyProtocolVersion specifies which protocol version to use. Valid\nvalues include \"v1\", \"v2\", and \"\". If the value is \"\", a protocol\nversion will be automatically selected. By default, this value is \"\".",
+                    "type": "string"
+                },
+                "remote_port": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "route_by_http_user": {
+                    "type": "string"
+                },
+                "run_id": {
+                    "description": "RunId client unique id",
+                    "type": "string"
+                },
+                "sk": {
+                    "type": "string"
+                },
+                "subdomain": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "ProxyType specifies the type of this  Valid values include \"tcp\",\n\"udp\", \"http\", \"https\", \"stcp\", and \"xtcp\". By default, this value is\n\"tcp\".",
+                    "type": "string"
+                },
+                "use_compression": {
+                    "description": "UseCompression controls whether or not communication with the server\nwill be compressed. By default, this value is false.",
+                    "type": "string"
+                },
+                "use_encryption": {
+                    "description": "UseEncryption controls whether or not communication with the server will\nbe encrypted. Encryption is done using the tokens supplied in the server\nand client configuration. By default, this value is false.",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

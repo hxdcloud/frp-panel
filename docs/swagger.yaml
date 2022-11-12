@@ -1,0 +1,619 @@
+basePath: /api  基础路径
+definitions:
+  config.Common:
+    properties:
+      KcpBindPort:
+        type: integer
+      OidcIssuer:
+        type: string
+      allowPorts:
+        description: manage config
+        type: string
+      authenticateHeartbeats:
+        type: boolean
+      authenticateNewWorkConns:
+        type: boolean
+      authenticationMethod:
+        description: auth config
+        type: string
+      bindAddr:
+        description: bind config
+        type: string
+      bindPort:
+        type: integer
+      bindUdpPort:
+        type: integer
+      custom404Page:
+        type: string
+      detailedErrorsToClient:
+        type: boolean
+      disableLogColor:
+        type: boolean
+      heartbeatTimeout:
+        type: integer
+      logFile:
+        description: log config
+        type: string
+      logLevel:
+        type: string
+      logMaxDays:
+        type: integer
+      maxPoolCount:
+        type: integer
+      maxPortsPerClient:
+        type: integer
+      oidcAudience:
+        type: string
+      oidcSkipExpiryCheck:
+        type: boolean
+      oidcSkipIssuerCheck:
+        type: boolean
+      proxyBindAddr:
+        type: string
+      subdomainHost:
+        type: string
+      tcpKeepalive:
+        description: connect config
+        type: integer
+      tcpmuxHttpConnectPort:
+        description: tcpmux config
+        type: integer
+      tcpmuxPassthrough:
+        type: boolean
+      tlsOnly:
+        type: boolean
+      token:
+        type: string
+      udpPacketSize:
+        type: integer
+      userConnTimeout:
+        type: integer
+      vhostHttpPort:
+        type: integer
+      vhostHttpTimeout:
+        description: http & https config
+        type: integer
+      vhostHttpsPort:
+        type: integer
+    required:
+    - bindPort
+    type: object
+  config.FrpsConfig:
+    properties:
+      common:
+        $ref: '#/definitions/config.Common'
+    type: object
+  controller.serverInfoResp:
+    properties:
+      bind_port:
+        type: integer
+      bind_udp_port:
+        type: integer
+      client_counts:
+        type: integer
+      cur_conns:
+        type: integer
+      heart_beat_timeout:
+        type: integer
+      host:
+        $ref: '#/definitions/model.Host'
+      host_state:
+        $ref: '#/definitions/model.HostState'
+      kcp_bind_port:
+        type: integer
+      max_pool_count:
+        type: integer
+      max_ports_per_client:
+        type: integer
+      proxy_type_count:
+        additionalProperties:
+          type: integer
+        type: object
+      subdomain_host:
+        type: string
+      tcpmux_httpconnect_port:
+        type: integer
+      total_traffic_in:
+        type: integer
+      total_traffic_out:
+        type: integer
+      version:
+        type: string
+      vhost_http_port:
+        type: integer
+      vhost_https_port:
+        type: integer
+    type: object
+  model.Host:
+    properties:
+      arch:
+        type: string
+      boot_time:
+        type: integer
+      cpu:
+        items:
+          type: string
+        type: array
+      mem_total:
+        type: integer
+      platform:
+        type: string
+      platform_version:
+        type: string
+      swap_total:
+        type: integer
+      virtualization:
+        type: string
+    type: object
+  model.HostState:
+    properties:
+      cpu:
+        type: number
+      load_1:
+        type: number
+      load_5:
+        type: number
+      load_15:
+        type: number
+      mem_percent:
+        type: number
+      mem_used:
+        type: integer
+      net_in_speed:
+        type: integer
+      net_in_transfer:
+        type: integer
+      net_out_speed:
+        type: integer
+      net_out_transfer:
+        type: integer
+      process_count:
+        type: integer
+      swap_percent:
+        type: number
+      swap_used:
+        type: integer
+      tcp_conn_count:
+        type: integer
+      udp_conn_count:
+        type: integer
+      uptime:
+        type: integer
+    type: object
+  model.LoginParams:
+    properties:
+      autoLogin:
+        type: boolean
+      password:
+        type: string
+      type:
+        type: string
+      username:
+        type: string
+    required:
+    - autoLogin
+    - password
+    - type
+    - username
+    type: object
+  msg.DeleteProxy:
+    properties:
+      name:
+        description: ProxyName is the name of this
+        type: string
+      run_id:
+        description: RunId client unique id
+        type: string
+    type: object
+  msg.NewProxyIni:
+    properties:
+      bandwidth_limit:
+        description: |-
+          BandwidthLimit limit the bandwidth
+          0 means no limit
+        type: string
+      custom_domains:
+        type: string
+      group:
+        description: |-
+          Group specifies which group the is a part of. The server will use
+          this information to load balance proxies in the same group. If the value
+          is "", this will not be in a group. By default, this value is "".
+        type: string
+      group_key:
+        description: |-
+          GroupKey specifies a group key, which should be the same among proxies
+          of the same group. By default, this value is "".
+        type: string
+      headers:
+        type: string
+      health_check_interval_s:
+        description: |-
+          HealthCheckIntervalS specifies the time in seconds between health
+          checks. By default, this value is 10.
+        type: string
+      health_check_max_failed:
+        description: |-
+          HealthCheckMaxFailed specifies the number of allowed failures before the
+          is stopped. By default, this value is 1.
+        type: string
+      health_check_timeout_s:
+        description: |-
+          HealthCheckTimeoutS specifies the number of seconds to wait for a health
+          check attempt to connect. If the timeout is reached, this counts as a
+          health check failure. By default, this value is 3.
+        type: string
+      health_check_type:
+        description: |-
+          HealthCheckType specifies what protocol to use for health checking.
+          Valid values include "tcp", "http", and "". If this value is "", health
+          checking will not be performed. By default, this value is "".
+
+          If the type is "tcp", a connection will be attempted to the target
+          server. If a connection cannot be established, the health check fails.
+
+          If the type is "http", a GET request will be made to the endpoint
+          specified by HealthCheckURL. If the response is not a 200, the health
+          check fails.
+        type: string
+      health_check_url:
+        description: |-
+          HealthCheckURL specifies the address to send health checks to if the
+          health check type is "http".
+        type: string
+      healthCheckAddr:
+        description: |-
+          HealthCheckAddr specifies the address to connect to if the health check
+          type is "tcp".
+        type: string
+      host_header_rewrite:
+        type: string
+      http_pwd:
+        type: string
+      http_user:
+        type: string
+      local_ip:
+        description: LocalIP specifies the IP address or host name to to.
+        type: string
+      local_port:
+        description: LocalPort specifies the port to to.
+        type: string
+      locations:
+        type: string
+      metas:
+        description: meta info for each proxy
+        type: string
+      multiplexer:
+        type: string
+      name:
+        description: ProxyName is the name of this
+        type: string
+      plugin:
+        description: |-
+          Plugin specifies what plugin should be used for ng. If this value
+          is set, the LocalIp and LocalPort values will be ignored. By default,
+          this value is "".
+        type: string
+      pluginParams:
+        description: |-
+          PluginParams specify parameters to be passed to the plugin, if one is
+          being used. By default, this value is an empty map.
+        type: string
+      proxy_protocol_version:
+        description: |-
+          ProxyProtocolVersion specifies which protocol version to use. Valid
+          values include "v1", "v2", and "". If the value is "", a protocol
+          version will be automatically selected. By default, this value is "".
+        type: string
+      remote_port:
+        type: string
+      role:
+        type: string
+      route_by_http_user:
+        type: string
+      run_id:
+        description: RunId client unique id
+        type: string
+      sk:
+        type: string
+      subdomain:
+        type: string
+      type:
+        description: |-
+          ProxyType specifies the type of this  Valid values include "tcp",
+          "udp", "http", "https", "stcp", and "xtcp". By default, this value is
+          "tcp".
+        type: string
+      use_compression:
+        description: |-
+          UseCompression controls whether or not communication with the server
+          will be compressed. By default, this value is false.
+        type: string
+      use_encryption:
+        description: |-
+          UseEncryption controls whether or not communication with the server will
+          be encrypted. Encryption is done using the tokens supplied in the server
+          and client configuration. By default, this value is false.
+        type: string
+    type: object
+info:
+  contact: {}
+  description: frp-panel API 描述
+  title: frp-panel
+  version: 1.0 版本
+paths:
+  /api/frpc:
+    get:
+      consumes:
+      - application/json
+      description: get frpc
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - frpc
+  /api/frpc/option:
+    get:
+      consumes:
+      - application/json
+      description: get frpc option
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - frpc
+  /api/frps/config:
+    get:
+      consumes:
+      - application/json
+      description: get frps config
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/config.FrpsConfig'
+      tags:
+      - frps
+    post:
+      consumes:
+      - application/json
+      description: save frps config
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - frps
+  /api/frps/info:
+    get:
+      consumes:
+      - application/json
+      description: get frps info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.serverInfoResp'
+      tags:
+      - frps
+  /api/login/account:
+    post:
+      consumes:
+      - application/json
+      description: user login
+      parameters:
+      - description: login info
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - user
+  /api/proxy/http:
+    get:
+      consumes:
+      - application/json
+      description: get frps http proxies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+  /api/proxy/https:
+    get:
+      consumes:
+      - application/json
+      description: get frps https proxies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+  /api/proxy/name/validate:
+    get:
+      consumes:
+      - application/json
+      description: validate frp proxy name unique
+      parameters:
+      - description: proxy name
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: frpc runId
+        in: query
+        name: runId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+  /api/proxy/port/tcp/validate:
+    get:
+      consumes:
+      - application/json
+      description: validate frp tcp port usable
+      parameters:
+      - description: tcp port
+        in: query
+        name: port
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+  /api/proxy/stcp:
+    get:
+      consumes:
+      - application/json
+      description: get frps stcp proxies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+  /api/proxy/sudp:
+    get:
+      consumes:
+      - application/json
+      description: get frps sudp proxies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+  /api/proxy/tcp:
+    delete:
+      consumes:
+      - application/json
+      description: delete frp proxy
+      parameters:
+      - description: proxy info
+        in: body
+        name: pxy
+        required: true
+        schema:
+          $ref: '#/definitions/msg.DeleteProxy'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+    get:
+      consumes:
+      - application/json
+      description: get frps tcp proxies
+      parameters:
+      - description: current page
+        in: query
+        name: current
+        required: true
+        type: integer
+      - description: page size
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      - description: proxy name
+        in: query
+        name: name
+        type: integer
+      - description: proxy status
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+    post:
+      consumes:
+      - application/json
+      description: add frp tcp proxy
+      parameters:
+      - description: proxy info
+        in: body
+        name: pxy
+        required: true
+        schema:
+          $ref: '#/definitions/msg.NewProxyIni'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+  /api/proxy/tcpmux:
+    get:
+      consumes:
+      - application/json
+      description: get frps tcpmux proxies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+  /api/proxy/udp:
+    get:
+      consumes:
+      - application/json
+      description: get frps udp proxies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+  /api/proxy/xtcp:
+    get:
+      consumes:
+      - application/json
+      description: get frps xtcp proxies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      tags:
+      - proxy
+swagger: "2.0"
